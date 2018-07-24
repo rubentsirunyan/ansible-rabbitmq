@@ -1,0 +1,23 @@
+---
+- name: RedHat | Enable epel repo
+  yum:
+    name: epel-release
+    state: present
+  become: true
+
+- name: RedHat | Install erlang
+  yum:
+    name: erlang
+    state: present
+  become: true
+
+- name: RedHat | Import GPG key
+  rpm_key:
+    key: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+  become: true
+
+- name: RedHat | Install RabbitMQ package
+  yum:
+    name: http://www.rabbitmq.com/releases/rabbitmq-server/v3.2.2/rabbitmq-server-3.2.2-1.noarch.rpm
+    state: present
+  become: true
