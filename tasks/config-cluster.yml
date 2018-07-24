@@ -8,8 +8,12 @@
   with_items: "{{ groups['rabbit'] }}" 
 
 - name: backup old erlang cookie
-  shell: cp -a /var/lib/rabbitmq/.erlang.cookie /var/lib/rabbitmq/.erlang.cookie.old
+  copy:
+    src: /var/lib/rabbitmq/.erlang.cookie
+    dest: /var/lib/rabbitmq/.erlang.cookie.old
+    remote_src: yes
   changed_when: false
+  ignore_errors: true
 
 - name: check if erlang cookie changed and if it is so stopping server
   template:
